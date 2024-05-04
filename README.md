@@ -10,5 +10,5 @@ fitur:
   
 spec of tech:
 - framework using codeigniter 3
-- bootstrap sb_admin 2
+- bootstrap sb_admin 2 (https://github.com/startbootstrap/startbootstrap-sb-admin-2)
 
