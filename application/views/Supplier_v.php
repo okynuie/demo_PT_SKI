@@ -116,9 +116,11 @@
         <div class="modal-body">
             <div class="form-group">
                 <input type="text" class="form-control" id="kodespl" name="kodespl" placeholder="Kode Supplier">
+                <?php echo form_error('kodespl', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" id="namasupplier" name="namasupplier" placeholder="Nama Supplier">
+                <?php echo form_error('namasupplier', '<small class="text-danger">', '</small>'); ?>
             </div>
         </div>
         <div class="modal-footer">

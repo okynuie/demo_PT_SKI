@@ -10,6 +10,27 @@ class Barang_model extends CI_Model
     public $satuan;
     public $hargabeli;
 
+    public function rules()
+    {
+        return[
+            [
+                'field' => 'namabarang',
+                'label' => 'Nama Barang',
+                'rules' => 'required',
+                'errors' => array('required' => 'Nama Barang tidak boleh kosong!'),
+            ],
+            [
+                'field' => 'satuan',
+                'label' => 'Satuan',
+                'rules' => 'required|alpha',
+                'errors' => array(
+                    'required' => 'Satuan tidak boleh kosong!',
+                    'alpha' => 'Satuan hanya berupa huruf!'
+                ),
+            ],
+        ];
+    }
+
     
     public function getAll()
     {
@@ -19,14 +40,27 @@ class Barang_model extends CI_Model
         return $query->result_array();
     }
 
-    public function saveSpl()
+    public function getBy($kodebarang)
     {
-      $post= $this->input->post();
-      $this->kodebrg = $post['kodebrg'];
-      $this->namabrg = $post['namabrg'];
-      $this->satuan = $post['satuan'];
-      $this->hargabeli = $post['hargabeli'];
+        return $this->db->get_where($this->_table, array('kodebrg' => $kodebarang))->row_array();
+    }
+
+    public function saveBrg($data)
+    {
+      $this->kodebrg = $data['kodebarang'];
+      $this->namabrg = $data['namabarang'];
+      $this->satuan = $data['satuan'];
+      $this->hargabeli = $data['hargabeli'];
       return $this->db->insert($this->_table, $this);
+    }
+
+    public function updateBrg($data, $oldData)
+    {
+      $this->kodebrg = $data['kodebarang'];
+      $this->namabrg = $data['namabarang'];
+      $this->satuan = $data['satuan'];
+      $this->hargabeli = $data['hargabeli'];
+      return $this->db->update($this->_table, $this, array('id'=>$oldData['id']));
     }
 
     public function del($id)

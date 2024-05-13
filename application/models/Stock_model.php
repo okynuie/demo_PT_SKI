@@ -5,7 +5,7 @@ class Stock_model extends CI_Model
     private $_table = "tbl_stok";
 
     public $kodebrg;
-    public $qty;
+    public $qtybeli;
     
     public function getAll()
     {
@@ -22,22 +22,22 @@ class Stock_model extends CI_Model
 
     public function saveStock($data)
     {
-      $this->kodebrg = $data['kodebrg'];
-      $this->qty = $data['qty'];
+      $this->kodebrg = $data['kodebarang'];
+      $this->qtybeli = $data['qty'];
       return $this->db->insert($this->_table, $this);
     }
 
-    public function update($data)
+    public function updateStok($data)
     {
-        $datalama = $this->getBy($data['kodebrg']);
-        if(isEmpty($datalama)){
-          $this->kodebrg = $data['kodebrg'];
-          $this->qty = $data['qty'];
+        $datalama = $this->getBy($data['kodebarang']);
+        if(empty($datalama)){
+          $this->kodebrg = $data['kodebarang'];
+          $this->qtybeli = $data['qty'];
           return $this->db->insert($this->_table, $this);
         }else{
-          $this->kodebrg = $datalama['kodebrg'];
-          $this->qty = $datalama['qty'] + $data['qty'];
-          return $this->db->update($this->_table, $this, array('kodebrg'=>$data['kodebrg']));
+          $this->kodebrg = $datalama['kodebarang'];
+          $this->qtybeli = $datalama['qty'] + $data['qty'];
+          return $this->db->update($this->_table, $this, array('kodebrg'=>$data['kodebarang']));
         }
         
         // var_dump($this);

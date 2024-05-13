@@ -6,6 +6,8 @@
     <h1 class="h3 mb-0 text-gray-800">Detail Transaksi</h1>
 </div>
 
+<?= $this->session->flashdata('message'); ?>
+
 <div class="row">
 
     <div class="col-lg-14">
@@ -17,25 +19,27 @@
             </div>
             
             <div class="card-body">
-
+            <form action="<?= base_url('transaksi/simpanInput');?>" method="post">
             <div class="form-group row">
               <div class="col-sm-2 mb-3 mb-sm-4">
-                  <label for="no_peserta">No. Transaksi</label>
-                  <input type="text" class="form-control form-control-user" id="exampleFirstName">
+                  <label>No. Transaksi</label>
+                  <input type="text" name="notransaksi" class="form-control form-control-user" id="notransaksi" value="<?= $notransaksi ?>" readonly>
               </div>
               <div class="col-sm-2 mb-3 mb-sm-4">
-                  <label for="no_peserta">Kode Supplier</label>
+                  <label for="kodespl">Kode Supplier</label>
                   <select name="kodespl" class="form-control" id="kodespl">
                             <option value="">Pilih Supplier</option>
                             <?php foreach ($supplier as $sp) : ?>
-                              <option value="<?= $sp['id']; ?>"><?php echo($sp['kodespl'].' ('.$sp['namaspl'].')'); ?></option>
+                              <option value="<?= $sp['kodespl']; ?>"><?php echo($sp['kodespl'].' ('.$sp['namaspl'].')'); ?></option>
                             <?php endforeach; ?>
                   </select>
+                  <?php echo form_error('kodespl', '<small class="text-danger">', '</small>'); ?>
               </div>
               <!-- <div class="input-group date"> -->
               <div class="col-sm-2 mb-3 mb-sm-4">
-              <label>Tanggal</label>
-                  <input type="text" class="form-control datepicker" name="tanggalbeli">
+                  <label for="tanggalbeli">Tanggal</label>
+                  <input type="date" class="form-control datepicker" name="tanggalbeli" id="tanggalbeli" placeholder="Pilih tanggal...">
+                  <?php echo form_error('tanggalbeli', '<small class="text-danger">', '</small>'); ?>
               </div>
                 <!-- </div> -->
             </div>
@@ -44,8 +48,9 @@
             <div class="btn btn-primary mb-3">
             <a id="add-row">Add Row</a>
             </div>
-
-            <table class="table table-bordered" id="" width="100%" cellspacing="0">
+            
+            <!-- <div id="inputs-container"> -->
+            <table class="table table-bordered" id="inputs-container" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Kode Barang</th>
@@ -59,56 +64,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td>
-                        <td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td>
-                        <td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td>
-                        <td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td>
-                        <td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td>
-                        <td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td>
-                        <td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td>
-                        <td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td>
+                    <tr class="input-gp">
+                        <td><input type="text" name="dbeli[][kodebarang]" class="form-control form-control-user" id="kodebarang">
+                        <?php echo form_error('kodebarang', '<small class="text-danger">', '</small>'); ?></td>
+                        <td><input type="text" class="form-control form-control-user" name="dbeli[][namabarang]" id="namabarang">
+                        <?php echo form_error('namabarang', '<small class="text-danger">', '</small>'); ?></td>
+                        <td><input type="text" class="form-control form-control-user" name="dbeli[][hargabeli]" id="hargabeli">
+                        <?php echo form_error('hargabeli', '<small class="text-danger">', '</small>'); ?></td>
+                        <td><input type="text" class="form-control form-control-user" name="dbeli[][qty]" id="qty">
+                        <?php echo form_error('qty', '<small class="text-danger">', '</small>'); ?></td>
+                        <td><input type="text" name="dbeli[][satuan]" class="form-control form-control-user" id="satuan">
+                        <?php echo form_error('satuan', '<small class="text-danger">', '</small>'); ?></td>
+                        <td><input type="text" class="form-control form-control-user" name="dbeli[][diskon]" id="diskon">
+                        <?php echo form_error('diskon', '<small class="text-danger">', '</small>'); ?></td>
+                        <td><input type="text" class="form-control form-control-user" name="dbeli[][diskonrp]" id="diskonrp" readonly></td>
+                        <td><input type="text" class="form-control form-control-user" name="dbeli[][total]" id="total" readonly></td>
                     </tr>
+                    
                 </tbody>
             </table>
-            
-            <!-- <div class="form-group row">
-              <div class="col-sm-2 mb-3 mb-sm-0">
-                  <label for="no_peserta">Kode Barang</label>
-                  <input type="text" class="form-control form-control-user" id="exampleFirstName">
-              </div>
-              <div class="col-sm-2">
-                  <label for="no_peserta">Nama Barang</label>
-                  <input type="text" class="form-control form-control-user" id="exampleLastName">
-              </div>
-              <div class="col-sm-2">
-              <label for="no_peserta">Harga Beli</label>
-                  <input type="text" class="form-control form-control-user" id="exampleLastName">
-              </div>
-              <div class="col-sm-1">
-              <label for="no_peserta">QTY</label>
-                  <input type="text" class="form-control form-control-user" id="exampleLastName">
-              </div>
-              <div class="col-sm-1">
-              <label for="no_peserta">Diskon</label>
-                  <input type="text" class="form-control form-control-user" id="exampleLastName">
-              </div>
-              <div class="col-sm-2">
-              <label for="no_peserta">DiskonRP</label>
-                  <input type="text" class="form-control form-control-user" id="exampleLastName">
-              </div>
-              
-              <div class="col-sm-2">
-              <label for="no_peserta">Total</label>
-                  <input type="text" class="form-control form-control-user" id="exampleLastName">
-              </div>
-            </div> -->
-
+            <!-- </div> -->
             </div>
-          </div>
-          <a href="index" class="btn btn-secondary mb-3">Cancel</a>
-          <a href="" class="btn btn-success mb-3" data-toggle="modal" data-target="#newMenuModal">Save</a>
-
+        </div>
+        <div class="form-group">
+            <a href="<?= base_url('transaksi/index')?>" class="btn btn-secondary mb-3">Cancel</a>
+            <button class="btn btn-success mb-3" type="submit">Save</button>
+        </div>
+        
+        </form>
     </div>
 
     

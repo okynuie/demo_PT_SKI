@@ -9,12 +9,6 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
-            <!-- Page Heading -->
-            <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-            <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                For more information about DataTables, please visit the <a target="_blank"
-                    href="https://datatables.net">official DataTables documentation</a>.</p> -->
             
           <a href="<?= base_url('transaksi/detailBeli')?>" class="btn btn-primary mb-3">Tambah Pembelian</a>
 
@@ -32,7 +26,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>No. Transaksi</th>
-                                    <th>Kode Supplier</th>
+                                    <th>Nama Supplier</th>
                                     <th>Tanggal Beli</th>
                                     <th>Total Hutang</th>
                                 </tr>
@@ -42,8 +36,15 @@
                                 <?php foreach($hutang as $ht) : ?>
                                 <tr>
                                     <td><?= $i; ?></td>
-                                    <td><?= $ht['notransaksi']; ?></td>
-                                    <td><?= $ht['kodespl']; ?></td>
+                                    <td><a href="<?= base_url('transaksi/viewBeli/'.$ht['notransaksi']);?>"><?= $ht['notransaksi']; ?></td>
+                                    <td><?php foreach($supplier as $sp): ?>
+                                    <?php if($sp['kodespl'] == $ht['kodespl'])
+                                    {
+                                        echo($sp['namaspl']);
+                                    }
+                                    ?>
+                                    <?php endforeach; ?>
+                                    </td>
                                     <td><?= $ht['tglbeli']; ?></td>
                                     <td><?= $ht['totalhutang']; ?></td>
                                 </tr>

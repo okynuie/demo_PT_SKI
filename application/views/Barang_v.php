@@ -39,7 +39,7 @@
                                     <td><?= $br['hargabeli']; ?></td>
                                     <?php foreach($stock as $st) : ?>
                                       <?php if ($br['kodebrg'] == $st['kodebrg']) : ?>
-                                        <td><?= $st['qty']; ?></td>
+                                        <td><?= $st['qtybeli']; ?></td>
                                       <?php endif; ?>
                                     <?php endforeach; ?>
                                 </tr>

@@ -12,11 +12,15 @@ class Supplier_model extends CI_Model
     {
         return [
                 [ 'field' => 'kodespl', 
-                  'label' => 'kodespl',
-                  'rules' => 'required'],
+                  'label' => 'Kode Supplier',
+                  'rules' => 'required',
+                  'errors' => array('required' => 'Kode Supplier tidak boleh kosong!'),
+                ],
                 [ 'field' => 'namasupplier', 
-                  'label' => 'namasupplier',
-                  'rules' => 'required']
+                  'label' => 'Nama Supplier',
+                  'rules' => 'required',
+                  'errors' => array('required' => 'Nama Supplier tidak boleh kosong!'),
+                  ]
         ];
     }
     

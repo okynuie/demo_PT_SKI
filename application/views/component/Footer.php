@@ -19,7 +19,9 @@ aria-hidden="true">
 
 
     <!-- Bootstrap core JavaScript-->
+    
     <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
+    
     <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -35,26 +37,46 @@ aria-hidden="true">
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
 
-    <script href="<?= base_url('assets/plugin/');?>datepicker/js/bootstrap-datepicker.min.js"></script>
 
-    <script type="text/javascript">
-    $(function(){
-        $(".datepicker").datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        todayHighlight: true,
+<script>
+    $(document).ready(function() {
+        
+        $(document).on('input', '.input-gp input', function() {
+            calculateValues($(this).closest('.input-gp'));
+        });
+
+        function calculateValues(inputGp) {
+            var input2 = parseFloat(inputGp.find('#qty').val());
+            var input3 = parseFloat(inputGp.find('#hargabeli').val());
+            var input4 = parseFloat(inputGp.find('#diskon').val());
+            var input5 = inputGp.find('#diskonrp');
+            var input6 = inputGp.find('#total');
+
+            var value5 = isNaN(input2) || isNaN(input3) ? '' : input2 * input3;
+            input6.val(value5);
+
+            var value6 = isNaN(input4) || isNaN(value5) ? '' : input4 * (value5/100);
+            input5.val(value6);
+        }
+
+        $('#add-row').on('click', function() {
+            var newRow = '<tr class="input-gp">' +
+                            '<td><input type="text" name="dbeli[][kodebarang]" class="form-control form-control-user" id="kodebarang"><?php echo form_error('kodebarang', '<small class="text-danger">', '</small>'); ?></td>' +
+                            '<td><input type="text" class="form-control form-control-user" name="dbeli[][namabarang]" id="namabarang"><?php echo form_error('namabarang', '<small class="text-danger">', '</small>'); ?></td>' +
+                            '<td><input type="text" class="form-control form-control-user" name="dbeli[][hargabeli]" id="hargabeli"><?php echo form_error('hargabeli', '<small class="text-danger">', '</small>'); ?></td>' +
+                            '<td><input type="text" class="form-control form-control-user" name="dbeli[][qty]" id="qty"><?php echo form_error('qty', '<small class="text-danger">', '</small>'); ?></td>' +
+                            '<td><input type="text" name="dbeli[][satuan]" class="form-control form-control-user" id="satuan"><?php echo form_error('satuan', '<small class="text-danger">', '</small>'); ?></td>' +
+                            '<td><input type="text" class="form-control form-control-user" name="dbeli[][diskon]" id="diskon"><?php echo form_error('diskon', '<small class="text-danger">', '</small>'); ?></td>' +
+                            '<td><input type="text" class="form-control form-control-user" name="dbeli[][diskonrp]" id="diskonrp" readonly></td>' +
+                            '<td><input type="text" class="form-control form-control-user" name="dbeli[][total]" id="total" readonly></td>' +
+                        '</tr>';
+            
+
+            $('#inputs-container tbody').append(newRow);
         });
     });
-    </script>
+</script>
 
-    <script>
-    $(document).ready(function(){
-    // click handler
-    $("#add-row").on("click", function() {
-        $("table").append('<tr><td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td><td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td><td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td><td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td><td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td><td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td><td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td><td><input type="text" class="form-control form-control-user" id="exampleFirstName"></td></tr>');
-    })
-    })
-    </script>
 
 </body>
 
